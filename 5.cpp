@@ -67,33 +67,26 @@ constexpr auto maxn = 100006;
 template <typename T, size_t N> int SIZE(const T (&t)[N]){ return N; } template<typename T> int SIZE(const T &t){ return t.size(); } string to_string(string s, int x1=0, int x2=1e9){ return '"' + ((x1 < s.size()) ? s.substr(x1, x2-x1+1) : "") + '"'; } string to_string(const char* s) { return to_string((string) s); } string to_string(bool b) { return (b ? "true" : "false"); } string to_string(char c){ return string({c}); } template<size_t N> string to_string(bitset<N> &b, int x1=0, int x2=1e9){ string t = ""; for(int __iii__ = min(x1,SIZE(b)),  __jjj__ = min(x2, SIZE(b)-1); __iii__ <= __jjj__; ++__iii__){ t += b[__iii__] + '0'; } return '"' + t + '"'; } template <typename A, typename... C> string to_string(A (&v), int x1=0, int x2=1e9, C... coords); int l_v_l_v_l = 0, t_a_b_s = 0; template <typename A, typename B> string to_string(pair<A, B> &p) { l_v_l_v_l++; string res = "(" + to_string(p.first) + ", " + to_string(p.second) + ")"; l_v_l_v_l--; return res; } template <typename A, typename... C> string to_string(A (&v), int x1, int x2, C... coords) { int rnk = rank<A>::value; string tab(t_a_b_s, ' '); string res = ""; bool first = true; if(l_v_l_v_l == 0) res += n_l; res += tab + "["; x1 = min(x1, SIZE(v)), x2 = min(x2, SIZE(v)); auto l = begin(v); advance(l, x1); auto r = l; advance(r, (x2-x1) + (x2 < SIZE(v))); for (auto e = l; e != r; e = next(e)) { if (!first) { res += ", "; } first = false; l_v_l_v_l++; if(e != l){ if(rnk > 1) { res += n_l; t_a_b_s = l_v_l_v_l; }; } else{ t_a_b_s = 0; } res += to_string(*e, coords...); l_v_l_v_l--; } res += "]"; if(l_v_l_v_l == 0) res += n_l; return res; } void dbgs(){;} template<typename Heads, typename... Tails> void dbgs(Heads H, Tails... T){ cout << to_string(H) << " | "; dbgs(T...); }
 #define dbgm(...) cout << "[" << #__VA_ARGS__ << "]: "; dbgs(__VA_ARGS__); cout << endl;
 #define n_l '\n'
-
-int sum(int n){
-    ll s=0;
-    while(n){
-        s+=n%10;
-        n=n/10;
-    }
-    return s;
-}
+vector<int> v[100001];
 int main(){
     ll t;
     cin>>t;
     while(t--){
         ll n;
         cin>>n;
-        ll a[n];
-        ll ans=INT_MIN;
-        for(ll i=0;i<n;i++)
+        ll a[n+1];
+        ll ans[n+1];
+        for(ll i=1;i<=n;i++)
         cin>>a[i];
-        for(ll i=0;i<n;i++){
-            for(ll j=i+1;j<n;j++){
-                ll k = a[i]*a[j];
-                ll p =sum(k);
-                if(p>= ans)
-                ans=p;
-            }
+        for(ll i=1;i<=n;i++){
+            int x;
+            cin>>x;
+            v[i].pb(x);
+            v[x].pb(i);
         }
-        cout<<ans<<"\n";
+        for(int i=1;i<=n;i++){
+            ll maxi=INT_MIN;
+            
+        }
     }
 }
