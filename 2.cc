@@ -71,17 +71,16 @@ int main(){
     ll t;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
-        int a[n],b[n];
-        forr(i,n)
-        cin>>a[i];
-        forr(i,n)
-        cin>>b[i];
-        int ans = INT_MIN;
-        forr(i,n){
-            ans=max(ans,(max(0,a[i]*20-b[i]*10)));
+        ll n,k;
+        cin>>n>>k;
+        ll m = n/k;
+        if(m%k!=0)
+        cout<<"YES"<<"\n";
+        else{
+            ll p = m/k;
+            if(p*k*k==n)
+            cout<<"NO"<<"\n";
         }
-        cout<<ans<<"\n";
+        
     }
 }
