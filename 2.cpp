@@ -67,23 +67,22 @@ constexpr auto maxn = 100006;
 template <typename T, size_t N> int SIZE(const T (&t)[N]){ return N; } template<typename T> int SIZE(const T &t){ return t.size(); } string to_string(string s, int x1=0, int x2=1e9){ return '"' + ((x1 < s.size()) ? s.substr(x1, x2-x1+1) : "") + '"'; } string to_string(const char* s) { return to_string((string) s); } string to_string(bool b) { return (b ? "true" : "false"); } string to_string(char c){ return string({c}); } template<size_t N> string to_string(bitset<N> &b, int x1=0, int x2=1e9){ string t = ""; for(int __iii__ = min(x1,SIZE(b)),  __jjj__ = min(x2, SIZE(b)-1); __iii__ <= __jjj__; ++__iii__){ t += b[__iii__] + '0'; } return '"' + t + '"'; } template <typename A, typename... C> string to_string(A (&v), int x1=0, int x2=1e9, C... coords); int l_v_l_v_l = 0, t_a_b_s = 0; template <typename A, typename B> string to_string(pair<A, B> &p) { l_v_l_v_l++; string res = "(" + to_string(p.first) + ", " + to_string(p.second) + ")"; l_v_l_v_l--; return res; } template <typename A, typename... C> string to_string(A (&v), int x1, int x2, C... coords) { int rnk = rank<A>::value; string tab(t_a_b_s, ' '); string res = ""; bool first = true; if(l_v_l_v_l == 0) res += n_l; res += tab + "["; x1 = min(x1, SIZE(v)), x2 = min(x2, SIZE(v)); auto l = begin(v); advance(l, x1); auto r = l; advance(r, (x2-x1) + (x2 < SIZE(v))); for (auto e = l; e != r; e = next(e)) { if (!first) { res += ", "; } first = false; l_v_l_v_l++; if(e != l){ if(rnk > 1) { res += n_l; t_a_b_s = l_v_l_v_l; }; } else{ t_a_b_s = 0; } res += to_string(*e, coords...); l_v_l_v_l--; } res += "]"; if(l_v_l_v_l == 0) res += n_l; return res; } void dbgs(){;} template<typename Heads, typename... Tails> void dbgs(Heads H, Tails... T){ cout << to_string(H) << " | "; dbgs(T...); }
 #define dbgm(...) cout << "[" << #__VA_ARGS__ << "]: "; dbgs(__VA_ARGS__); cout << endl;
 #define n_l '\n'
-void fastio(){
-ios_base::sync_with_stdio(false);
-cin.tie(NULL);
-}
 int main(){
     ll t;
     cin>>t;
     while(t--){
         ll n;
         cin>>n;
-        if(n<=5){
-            cout<<"0"<<"\n";
+        ll a[n+1]={0};
+        ll dp[n+1]={0};
+        for(ll i=1;i<=n;i++){
+            cin>>a[i];
         }
-        else if(n%2==0)
-        cout<<3+(n-1)-2<<"\n";
-        else{
-        cout<<3+(n-1)-3<<"\n";
+        dp[1]=a[1]*1;
+        dp[2]=max((dp[1]+a[2]*2),(a[2]*1+a[1]*2));
+        for(ll i=3;i<=n;i++){
+            dp[i]=max((dp[i-1]+a[i]*i),(dp[i-2]+(a[i-1]*i+a[i]*(i-1))));
         }
+        cout<<dp[n]<<"\n";
     }
 }
